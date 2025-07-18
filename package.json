@@ -1,0 +1,40 @@
+{
+  "name": "grapql-node",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ramz001/grapql-node.git"
+  },
+  "keywords": [
+    "node.js",
+    "graphql"
+  ],
+  "author": "Ramz001",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ramz001/grapql-node/issues"
+  },
+  "homepage": "https://github.com/Ramz001/grapql-node#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "graphql": "^16.11.0",
+    "graphql-http": "^1.22.4",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.27.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.14",
+    "nodemon": "^3.1.10",
+    "pm2": "^6.0.8",
+    "typescript": "^5.8.3"
+  }
+}
