@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/Ramz001/grapql-node#readme",
   "dependencies": {
+    "@graphql-tools/load-files": "^7.0.1",
+    "@graphql-tools/schema": "^10.0.25",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
@@ -34,13 +36,13 @@
   "devDependencies": {
     "@babel/preset-typescript": "^7.27.1",
     "@graphql-codegen/cli": "5.0.7",
+    "@graphql-codegen/typescript": "4.1.6",
+    "@graphql-codegen/typescript-resolvers": "4.5.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.14",
     "nodemon": "^3.1.10",
     "pm2": "^6.0.8",
-    "typescript": "^5.8.3",
-    "@graphql-codegen/typescript": "4.1.6",
-    "@graphql-codegen/typescript-resolvers": "4.5.1"
+    "typescript": "^5.8.3"
   }
 }

@@ -1,27 +1,22 @@
-type Query {
-  products: [Product]
-  orders: [Order]
-}
-
-type Product{
-  id: ID! 
+type Product {
+  id: ID!
   description: String!
   price: Float!
   reviews: [Review]
 }
 
-type Review{
+type Review {
   rating: Int!
   comment: String
 }
 
-type Order{
+type Order {
   date: String!
   subtotal: Float!
   items: [OrderItem]
 }
 
-type OrderItem{
+type OrderItem {
   product: Product!
   quantity: Int!
 }

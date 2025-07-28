@@ -38,7 +38,6 @@ export type Product = {
 
 export type Query = {
   __typename?: 'Query';
-  orders?: Maybe<Array<Maybe<Order>>>;
   products?: Maybe<Array<Maybe<Product>>>;
 };
 
@@ -167,7 +166,6 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['Order']>>>, ParentType, ContextType>;
   products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType>;
 };
 
