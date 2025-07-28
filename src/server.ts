@@ -6,17 +6,10 @@ import path from "path";
 // @ts-ignore
 import { ruruHTML } from "ruru/server";
 // Construct a schema using GraphQL schema language
-
+import { root } from "./root";
 const schemaSDL = fs.readFileSync(path.join(__dirname, "root.gql"), "utf8");
 
 export const schema = buildSchema(schemaSDL);
- 
-// The root provides a resolver function for each API endpoint
-export const root = {
-  hello() {
-    return "Hello world!";
-  },
-};
  
 const app = express();
  
