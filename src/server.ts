@@ -7,8 +7,11 @@ const schema = buildSchema(`type Query { description: String, price: Float } `);
 
 // The root provides a resolver function for each API endpoint
 const root = {
-  hello() {
-    return "Hello world!";
+  description() {
+    return "This is a description";
+  },
+  price() {
+    return 100;
   },
 };
 
