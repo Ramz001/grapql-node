@@ -1,17 +1,18 @@
 import express from "express";
 import { createHandler } from "graphql-http/lib/use/express";
 import { buildSchema } from "graphql";
+import fs from "fs";
+import path from "path";
 // @ts-ignore
 import { ruruHTML } from "ruru/server";
 // Construct a schema using GraphQL schema language
-const schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
+
+const schemaSDL = fs.readFileSync(path.join(__dirname, "root.gql"), "utf8");
+
+export const schema = buildSchema(schemaSDL);
  
 // The root provides a resolver function for each API endpoint
-const root = {
+export const root = {
   hello() {
     return "Hello world!";
   },
