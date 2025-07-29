@@ -28,3 +28,12 @@ export const products = [
 export const getAllProducts = () => {
   return products;
 };
+
+export const getProductsByPrice = (min: number, max: number) => {
+  if (typeof min !== "number" || typeof max !== "number") {
+    return [];
+  }
+  return products.filter(
+    (product) => product.price >= min && product.price <= max
+  );
+};
