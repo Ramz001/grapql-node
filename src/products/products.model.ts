@@ -37,3 +37,10 @@ export const getProductsByPrice = (min: number, max: number) => {
     (product) => product.price >= min && product.price <= max
   );
 };
+
+export const getProductById = (id: string) => {
+  if (!id) {
+    return {};
+  }
+  return products.find((p) => p.id === id);
+};
