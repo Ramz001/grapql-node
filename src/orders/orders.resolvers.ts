@@ -1,7 +1,6 @@
 import type { Order } from "../generated/graphql";
+import { getAllOrders } from "./orders.model";
 
 export const Query = {
-  orders: (parent: { orders: Order[] }) => {
-    return parent.orders;
-  },
+  orders: () => getAllOrders(),
 };

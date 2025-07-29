@@ -3,13 +3,12 @@ import express from "express";
 import { ruruHTML } from "ruru/server";
 import { createHandler } from "graphql-http/lib/use/express";
 import path from "path";
-import { root } from "./root";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { loadFilesSync } from "@graphql-tools/load-files";
 
 const typeDefs = loadFilesSync(path.join(__dirname, "**/*.graphql"));
 const resolvers = loadFilesSync(path.join(__dirname, "**/*.resolvers.ts"));
-console.log(resolvers[0].Query.orders());
+console.log(resolvers);
 
 export const schema = makeExecutableSchema({
   typeDefs,
