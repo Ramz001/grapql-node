@@ -1,4 +1,0 @@
-type Query {
-  orders: [Order]
-  products: [Product]
-}

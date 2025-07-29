@@ -1,3 +1,7 @@
+type Query {
+  products: [Product]
+}
+
 type Product{
   id: ID! 
   description: String!
