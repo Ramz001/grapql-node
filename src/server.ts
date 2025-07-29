@@ -8,9 +8,20 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import { loadFilesSync } from "@graphql-tools/load-files";
 
 const typeDefs = loadFilesSync(path.join(__dirname, "**/*.graphql"));
-console.log(typeDefs);
 export const schema = makeExecutableSchema({
   typeDefs,
+  resolvers: {
+    Query: {
+      products: async (parent, args, context, info) => {
+        console.log("geting products", parent.products);
+        return await Promise.resolve(parent.products);
+      },
+      orders: async (parent, args, context, info) => {
+        console.log("Getting orders", parent.orders);
+        return await Promise.resolve(parent.orders);
+      },
+    },
+  },
 });
 
 const app = express();
