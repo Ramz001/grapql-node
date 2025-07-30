@@ -19,6 +19,7 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   addProduct?: Maybe<Product>;
+  addReview?: Maybe<Review>;
 };
 
 
@@ -26,6 +27,13 @@ export type MutationAddProductArgs = {
   description: Scalars['String']['input'];
   id: Scalars['ID']['input'];
   price: Scalars['Float']['input'];
+};
+
+
+export type MutationAddReviewArgs = {
+  comment?: InputMaybe<Scalars['String']['input']>;
+  product_id: Scalars['ID']['input'];
+  rating: Scalars['Int']['input'];
 };
 
 export type Order = {
@@ -71,6 +79,7 @@ export type QueryProductsByPriceArgs = {
 export type Review = {
   __typename?: 'Review';
   comment?: Maybe<Scalars['String']['output']>;
+  productId?: Maybe<Scalars['ID']['output']>;
   rating: Scalars['Int']['output'];
 };
 
@@ -175,6 +184,7 @@ export type ResolversParentTypes = {
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationAddProductArgs, 'description' | 'id' | 'price'>>;
+  addReview?: Resolver<Maybe<ResolversTypes['Review']>, ParentType, ContextType, RequireFields<MutationAddReviewArgs, 'product_id' | 'rating'>>;
 };
 
 export type OrderResolvers<ContextType = any, ParentType extends ResolversParentTypes['Order'] = ResolversParentTypes['Order']> = {
@@ -207,6 +217,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type ReviewResolvers<ContextType = any, ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']> = {
   comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  productId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   rating?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

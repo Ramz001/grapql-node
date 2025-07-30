@@ -1,10 +1,11 @@
 import {
   addProduct,
+  addReview,
   getAllProducts,
   getProductById,
   getProductsByPrice,
 } from "./products.model";
-import type { Product } from "../generated/graphql";
+import type { Product, Review } from "../generated/graphql";
 
 export const Query = {
   products: () => getAllProducts(),
@@ -19,5 +20,8 @@ export const Query = {
 export const Mutation = {
   addProduct: (_: any, args: Product) => {
     return addProduct(args);
+  },
+  addReview: (_: any, args: Review) => {
+    return addReview(args);
   },
 };

@@ -1,4 +1,4 @@
-import type { Product } from "../generated/graphql";
+import type { Product, Review } from "../generated/graphql";
 
 export const products = [
   {
@@ -55,4 +55,28 @@ export const addProduct = ({ id, description, price }: Product) => {
 
   products.unshift(product);
   return product;
+};
+
+export const addReview = ({ productId, rating, comment }: Review) => {
+  if (!productId || typeof rating !== "number") {
+    return null;
+  }
+
+  const product = products.find((p) => p.id === productId);
+  if (!product) {
+    return null;
+  }
+
+  const review = {
+    rating,
+    comment: typeof comment === "string" ? comment : "",
+    productId
+  };
+
+  if (!Array.isArray(product.reviews)) {
+    product.reviews = [];
+  }
+  product.reviews.push(review);
+  console.log(review)
+  return review;
 };
