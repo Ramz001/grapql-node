@@ -1,7 +1,9 @@
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@as-integrations/express5";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import express from "express";
-// @ts-ignore
-import { ruruHTML } from "ruru/server";
-import { createHandler } from "graphql-http/lib/use/express";
+import http from "http";
+import cors from "cors";
 import path from "path";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { loadFilesSync } from "@graphql-tools/load-files";
@@ -9,27 +11,24 @@ import { loadFilesSync } from "@graphql-tools/load-files";
 const typeDefs = loadFilesSync(path.join(__dirname, "**/*.graphql"));
 const resolvers = loadFilesSync(path.join(__dirname, "**/*.resolvers.ts"));
 
-export const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-});
+const startServer = async () => {
+  const app = express();
+  const httpServer = http.createServer(app);
 
-const app = express();
+  const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-// Create and use the GraphQL handler
-app.all(
-  "/graphql",
-  createHandler({
+  const server = new ApolloServer({
     schema,
-  })
-);
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  });
 
-app.get("/", (_req, res) => {
-  res.type("html");
-  res.end(ruruHTML({ endpoint: "/graphql" }));
-});
+  await server.start();
 
-// Start the server at port 4000
-app.listen(4000, () => {
-  console.log("Running a GraphQL API server at http://localhost:4000/graphql");
-});
+  app.use("/graphql", cors(), express.json(), expressMiddleware(server));
+
+  httpServer.listen({ port: 4000 }, () => {
+    console.log("API Endpoint: http://localhost:4000/graphql");
+  });
+};
+
+startServer();
