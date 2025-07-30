@@ -1,3 +1,5 @@
+import type { Product } from "../generated/graphql";
+
 export const products = [
   {
     id: "1",
@@ -43,4 +45,14 @@ export const getProductById = (id: string) => {
     return {};
   }
   return products.find((p) => p.id === id);
+};
+
+export const addProduct = ({ id, description, price }: Product) => {
+  if (!id || !description || !price) {
+    return;
+  }
+  const product = { id, description, price, reviews: [] };
+
+  products.unshift(product);
+  return product;
 };

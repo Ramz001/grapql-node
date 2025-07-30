@@ -6,6 +6,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -13,6 +14,18 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  addProduct?: Maybe<Product>;
+};
+
+
+export type MutationAddProductArgs = {
+  description: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  price: Scalars['Float']['input'];
 };
 
 export type Order = {
@@ -38,7 +51,21 @@ export type Product = {
 
 export type Query = {
   __typename?: 'Query';
+  orders?: Maybe<Array<Maybe<Order>>>;
+  productById?: Maybe<Product>;
   products?: Maybe<Array<Maybe<Product>>>;
+  productsByPrice?: Maybe<Array<Maybe<Product>>>;
+};
+
+
+export type QueryProductByIdArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryProductsByPriceArgs = {
+  max: Scalars['Float']['input'];
+  min: Scalars['Float']['input'];
 };
 
 export type Review = {
@@ -122,6 +149,7 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Order: ResolverTypeWrapper<Order>;
   OrderItem: ResolverTypeWrapper<OrderItem>;
   Product: ResolverTypeWrapper<Product>;
@@ -136,12 +164,17 @@ export type ResolversParentTypes = {
   Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
+  Mutation: {};
   Order: Order;
   OrderItem: OrderItem;
   Product: Product;
   Query: {};
   Review: Review;
   String: Scalars['String']['output'];
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationAddProductArgs, 'description' | 'id' | 'price'>>;
 };
 
 export type OrderResolvers<ContextType = any, ParentType extends ResolversParentTypes['Order'] = ResolversParentTypes['Order']> = {
@@ -166,7 +199,10 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['Order']>>>, ParentType, ContextType>;
+  productById?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryProductByIdArgs>>;
   products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType>;
+  productsByPrice?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType, RequireFields<QueryProductsByPriceArgs, 'max' | 'min'>>;
 };
 
 export type ReviewResolvers<ContextType = any, ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']> = {
@@ -176,6 +212,7 @@ export type ReviewResolvers<ContextType = any, ParentType extends ResolversParen
 };
 
 export type Resolvers<ContextType = any> = {
+  Mutation?: MutationResolvers<ContextType>;
   Order?: OrderResolvers<ContextType>;
   OrderItem?: OrderItemResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;

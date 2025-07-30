@@ -8,7 +8,6 @@ import { loadFilesSync } from "@graphql-tools/load-files";
 
 const typeDefs = loadFilesSync(path.join(__dirname, "**/*.graphql"));
 const resolvers = loadFilesSync(path.join(__dirname, "**/*.resolvers.ts"));
-console.log(resolvers);
 
 export const schema = makeExecutableSchema({
   typeDefs,
